@@ -290,6 +290,8 @@ class Swish(Operation):
     def _input_grad(self, output_grad: np.ndarray) -> np.ndarray:
         return output_grad * (self.sigmoid_ + self.input_ * self.sigmoid_ * (1.0 - self.sigmoid_))
 
+
+
 class Dropout(Operation):
     '''
     Dropout operation helps prevent the network from overfitting the training set.
