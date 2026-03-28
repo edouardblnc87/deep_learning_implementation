@@ -6,3 +6,4 @@ from .Optimizer import *
 from .Layer import *
 from .Trainer import *
 from .NumberWithGrad import *
+from .Rnn import *
