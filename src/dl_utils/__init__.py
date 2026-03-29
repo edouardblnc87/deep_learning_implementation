@@ -7,3 +7,4 @@ from .Layer import *
 from .Trainer import *
 from .NumberWithGrad import *
 from .Rnn import *
+from .Lstm import LSTM
