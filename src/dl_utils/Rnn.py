@@ -156,6 +156,7 @@ class Trainer:
         # history
         self.train_losses: List[float] = []
         self.test_losses:  List[float] = []
+        self._best_weights = None
 
 
     def _to_tensor(self, x) -> torch.Tensor:
@@ -185,6 +186,7 @@ class Trainer:
         )
 
         best_test_loss  = float('inf')
+        best_epoch = 0
         epochs_no_improve = 0
 
         for epoch in range(self.n_epochs):
@@ -219,19 +221,21 @@ class Trainer:
                     test_loss = self.loss_fn(test_pred, y_test).item()
                     self.test_losses.append(test_loss)
 
-                # early stopping
-                if self.early_stopping is not None:
-                    if test_loss < best_test_loss:
-                        best_test_loss    = test_loss
-                        epochs_no_improve = 0
-                        self._best_weights = {k: v.clone() for k, v in self.model.state_dict().items()}
-                    else:
-                        epochs_no_improve += 1
-                        if epochs_no_improve >= self.early_stopping:
-                            if self.verbose > 0:
-                                print(f"early stopping at epoch {epoch} — best test loss: {best_test_loss:.6f}")
-                            self.model.load_state_dict(self._best_weights)
-                            return
+                # always track the best model
+                if test_loss < best_test_loss:
+                    best_test_loss = test_loss
+                    best_epoch = epoch
+                    epochs_no_improve = 0
+                    self._best_weights = {k: v.clone() for k, v in self.model.state_dict().items()}
+                else:
+                    epochs_no_improve += 1
+
+                # early stopping (only if enabled)
+                if self.early_stopping is not None and epochs_no_improve >= self.early_stopping:
+                    if self.verbose > 0:
+                        print(f"early stopping at epoch {epoch} — best test loss: {best_test_loss:.6f}")
+                    self.model.load_state_dict(self._best_weights)
+                    return
 
             # ── logging ────────────────────────────────────────
             if self.verbose > 0 and epoch % self.verbose == 0:
@@ -240,6 +244,17 @@ class Trainer:
                     log += f"  test: {test_loss:.6f}"
                 print(log)
 
+        # restore best model at end of full training
+        if self._best_weights is not None:
+            self.model.load_state_dict(self._best_weights)
+            if self.verbose > 0:
+                print(f"restoring best model from epoch {best_epoch} — test loss: {best_test_loss:.6f}")
+
+
+    def restore_best_model(self) -> None:
+        if self._best_weights is None:
+            raise RuntimeError("No best weights saved — train with test data first.")
+        self.model.load_state_dict(self._best_weights)
 
     def predict(
         self,
