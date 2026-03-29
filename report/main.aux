@@ -1,0 +1,85 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{3}{section.1}\protected@file@percent }
+\newlabel{sec:introduction}{{1}{3}{Introduction}{section.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Motivation}{3}{subsection.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Objective}{3}{subsection.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Dataset}{3}{subsection.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4}Evaluation}{4}{subsection.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.5}Paper Structure}{4}{subsection.1.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Data}{4}{section.2}\protected@file@percent }
+\newlabel{sec:data}{{2}{4}{Data}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Dataset Construction}{4}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Descriptive Statistics}{5}{subsection.2.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Descriptive statistics for S\&P 500 daily log-returns (SPY, 1993--2026).}}{5}{table.caption.2}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{tab:stats}{{1}{5}{Descriptive statistics for S\&P 500 daily log-returns (SPY, 1993--2026)}{table.caption.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Log-Return Time Series}{5}{subsection.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces S\&P 500 daily log-returns. Three major stress periods are clearly visible.}}{5}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:log_returns}{{1}{5}{S\&P 500 daily log-returns. Three major stress periods are clearly visible}{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Realized Volatility and Regime Identification}{6}{subsection.2.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Realized absolute return (target variable $y_t$). The dashed line indicates the 90th-percentile threshold used to define the crisis regime.}}{6}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:realized_vol}{{2}{6}{Realized absolute return (target variable $y_t$). The dashed line indicates the 90th-percentile threshold used to define the crisis regime}{figure.caption.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Market regime statistics.}}{6}{table.caption.5}\protected@file@percent }
+\newlabel{tab:regimes}{{2}{6}{Market regime statistics}{table.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Autocorrelation Analysis}{6}{subsection.2.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Autocorrelation of raw log-returns (near zero) vs absolute log-returns (strongly positive). The latter justifies using past absolute returns as features.}}{6}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:acf}{{3}{6}{Autocorrelation of raw log-returns (near zero) vs absolute log-returns (strongly positive). The latter justifies using past absolute returns as features}{figure.caption.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6}Feature Correlation Structure}{7}{subsection.2.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Pearson correlation matrix of the 10 lag features. Adjacent lags are positively correlated, reflecting the persistence of volatility regimes.}}{7}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:corr}{{4}{7}{Pearson correlation matrix of the 10 lag features. Adjacent lags are positively correlated, reflecting the persistence of volatility regimes}{figure.caption.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.7}Summary}{7}{subsection.2.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Linear Regression Baseline}{8}{section.3}\protected@file@percent }
+\newlabel{sec:linreg}{{3}{8}{Linear Regression Baseline}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Standard Linear Regression}{8}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}Setup}{8}{subsubsection.3.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2}Results}{8}{subsubsection.3.1.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Linear regression performance on the test set (scaled units).}}{8}{table.caption.8}\protected@file@percent }
+\newlabel{tab:linreg_full}{{3}{8}{Linear regression performance on the test set (scaled units)}{table.caption.8}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3}Coefficient Analysis}{8}{subsubsection.3.1.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces OLS regression coefficients ranked by absolute magnitude.}}{8}{table.caption.9}\protected@file@percent }
+\newlabel{tab:coefficients}{{4}{8}{OLS regression coefficients ranked by absolute magnitude}{table.caption.9}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.4}Predicted vs.\ Actual}{9}{subsubsection.3.1.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Linear regression: predicted vs.\ actual realized absolute return. The model systematically underpredicts during crisis episodes.}}{9}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:linreg_pred}{{5}{9}{Linear regression: predicted vs.\ actual realized absolute return. The model systematically underpredicts during crisis episodes}{figure.caption.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Feature Engineering}{9}{subsection.3.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Impact of feature engineering on linear regression performance.}}{9}{table.caption.11}\protected@file@percent }
+\newlabel{tab:feat_eng}{{5}{9}{Impact of feature engineering on linear regression performance}{table.caption.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Regime Analysis}{9}{subsection.3.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Linear regression performance by market regime (raw lag features).}}{9}{table.caption.12}\protected@file@percent }
+\newlabel{tab:linreg_regime}{{6}{9}{Linear regression performance by market regime (raw lag features)}{table.caption.12}{}}
+\citation{bollerslev1986generalized}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}GARCH(1,1) Baseline}{10}{subsection.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.1}Estimated Parameters}{10}{subsubsection.3.4.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces GARCH(1,1) maximum-likelihood parameter estimates.}}{10}{table.caption.13}\protected@file@percent }
+\newlabel{tab:garch_params}{{7}{10}{GARCH(1,1) maximum-likelihood parameter estimates}{table.caption.13}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.2}Regime Performance}{10}{subsubsection.3.4.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces GARCH(1,1) performance by market regime (unscaled returns).}}{10}{table.caption.14}\protected@file@percent }
+\newlabel{tab:garch_regime}{{8}{10}{GARCH(1,1) performance by market regime (unscaled returns)}{table.caption.14}{}}
+\bibstyle{plainnat}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Summary of Limitations}{11}{subsection.3.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Comparison of linear baseline models (MAE, full sample).}}{11}{table.caption.15}\protected@file@percent }
+\newlabel{tab:linreg_summary}{{9}{11}{Comparison of linear baseline models (MAE, full sample)}{table.caption.15}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Feedforward Neural Network}{12}{section.4}\protected@file@percent }
+\newlabel{sec:fnn}{{4}{12}{Feedforward Neural Network}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Architecture}{12}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Training Setup}{12}{subsection.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Results}{12}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Analysis}{12}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Limitations}{12}{subsection.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Recurrent Neural Network}{12}{section.5}\protected@file@percent }
+\newlabel{sec:rnn}{{5}{12}{Recurrent Neural Network}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Architecture}{12}{subsection.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Training Setup}{12}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Results}{12}{subsection.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Limitations}{12}{subsection.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Long Short-Term Memory}{12}{section.6}\protected@file@percent }
+\newlabel{sec:lstm}{{6}{12}{Long Short-Term Memory}{section.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Architecture}{12}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Training Setup}{12}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Results}{12}{subsection.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Cross-Model Comparison}{12}{subsection.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Conclusion}{12}{subsection.6.5}\protected@file@percent }
+\gdef \@abspage@last{12}

@@ -1,0 +1,58 @@
+\section{Long Short-Term Memory}
+\label{sec:lstm}
+
+% TODO: fill this section once LSTM experiments are complete (see 7_lstm.ipynb)
+
+\subsection{Architecture}
+
+% TODO: describe the LSTM architecture.
+%
+% Key points to cover:
+%   - Gating mechanism (input, forget, output gates)
+%   - Cell state vs hidden state
+%   - Number of layers, hidden size
+%   - Dropout / regularization
+%   - Output layer
+
+\subsection{Training Setup}
+
+% TODO: describe training procedure.
+
+\subsection{Results}
+
+% TODO: insert results table (MAE — full, calm, crisis).
+
+% TODO: figure placeholder — predicted vs actual (LSTM)
+
+% TODO: figure placeholder — training / validation loss curves
+
+\subsection{Cross-Model Comparison}
+
+% TODO: final summary table comparing all models on MAE (primary metric).
+%
+% Template:
+%
+% \begin{table}[H]
+%   \centering
+%   \caption{Summary comparison of all models (MAE on test set).}
+%   \label{tab:final_comparison}
+%   \begin{tabular}{lrrr}
+%     \toprule
+%     Model                       & MAE (full) & MAE (calm) & MAE (crisis) \\
+%     \midrule
+%     Linear Regression (raw)     & 0.638 & 0.488 & 1.987 \\
+%     Linear Regression (eng.)    & 0.598 & ---   & ---   \\
+%     GARCH(1,1)                  & 0.00583 & 0.00506 & 0.01281 \\
+%     FNN                         & TODO  & TODO  & TODO  \\
+%     RNN                         & TODO  & TODO  & TODO  \\
+%     LSTM                        & TODO  & TODO  & TODO  \\
+%     \bottomrule
+%   \end{tabular}
+% \end{table}
+
+\subsection{Conclusion}
+
+% TODO: summarise findings across all architectures.
+%       Which model best handles the calm regime? The crisis regime?
+%       What are the remaining open challenges (e.g., regime detection,
+%       attention mechanisms, multivariate inputs)?

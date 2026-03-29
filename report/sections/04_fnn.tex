@@ -1,0 +1,53 @@
+\section{Feedforward Neural Network}
+\label{sec:fnn}
+
+% TODO: fill this section once FNN experiments are complete (see 3_dl.ipynb / 2_fnn.ipynb)
+
+\subsection{Architecture}
+
+% TODO: describe the FNN architecture (number of layers, hidden units, activation
+%       functions, dropout, weight initialization scheme used).
+%
+% Key points to cover:
+%   - Input layer: 10 lag features
+%   - Hidden layers: [describe configuration]
+%   - Activation: ReLU (automatically solves symmetry blindness)
+%   - Dropout: [rate]
+%   - Weight init: He initialization
+%   - Output: single neuron (no activation), predicts absolute return
+
+\subsection{Training Setup}
+
+% TODO: describe training procedure.
+%
+%   - Loss function: [MSE / MAE / custom?]
+%   - Optimizer: [SGD / Adam?], learning rate schedule
+%   - Batch size, number of epochs
+%   - Early stopping patience
+%   - Train / validation / test split
+
+\subsection{Results}
+
+% TODO: insert results table (MAE, RMSE, QLIKE — full, calm, crisis).
+%
+% Preliminary reference values from notebook:
+%   Custom NumPy FNN  — MAE: 0.605, val loss: 0.759
+%   PyTorch reference — MAE: 0.579
+
+% TODO: figure placeholder — predicted vs actual (FNN)
+
+% TODO: figure placeholder — training / validation loss curves
+
+\subsection{Analysis}
+
+% TODO: discuss weight visualizations, gradient norms, lag sensitivity.
+%       How does varying the number of lags affect performance?
+%       SHAP / LIME feature importance (if computed).
+
+\subsection{Limitations}
+
+% TODO: describe remaining limitations of FNN:
+%   1. Order blindness — input is a flat vector; temporal ordering is ignored.
+%   2. Regime blindness — still a single model with no state.
+%
+% These motivate the RNN architecture in Section~\ref{sec:rnn}.
