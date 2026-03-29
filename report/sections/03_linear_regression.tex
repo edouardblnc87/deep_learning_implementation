@@ -70,11 +70,7 @@ limitation:
 
 \begin{figure}[H]
   \centering
-  % Export figure from notebook cell 9 as figures/fig05_linreg_pred.png
-  \fcolorbox{gray!60}{gray!10}{\parbox{0.85\textwidth}{\centering\vspace{1.5cm}
-    \textcolor{gray}{\textbf{[Figure placeholder]}\\
-    Linear regression predictions (orange) vs actual realized volatility (blue).
-    The model predicts near-zero at all times; largest residuals occur during crises.}\vspace{1.5cm}}}
+  \includegraphics[width=\textwidth]{figures/figure_31.png}
   \caption{Linear regression: predicted vs.\ actual realized absolute return.
     The model systematically underpredicts during crisis episodes.}
   \label{fig:linreg_pred}
@@ -101,7 +97,7 @@ is also added to capture short-term momentum in volatility.
     Raw signed lags             & 0.638 & 0.933 & 16.79 \\
     Squared lags + recency ratio & 0.598 & 0.874 &  7.46 \\
     \midrule
-    Improvement ($\Delta$)       & $-$6.3\% & $-$6.4\% & $-$55.6\% \\
+    Improvement ($\Delta$)       & $+$6.3\% & $+$6.4\% & $+$55.6\% \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -140,7 +136,7 @@ to detect a regime shift. This is the second structural limitation:
 
 \subsection{GARCH(1,1) Baseline}
 
-The GARCH(1,1) model \citep{bollerslev1986generalized} provides a parametric volatility
+The GARCH(1,1) model provides a parametric volatility
 benchmark. The conditional variance follows:
 \[
   \sigma_t^2 = \omega + \alpha \, \epsilon_{t-1}^2 + \beta \, \sigma_{t-1}^2,
