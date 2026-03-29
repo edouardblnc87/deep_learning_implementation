@@ -690,3 +690,444 @@ def grid_search_rnn(
     print("\n── Top 10 ────────────────────────────────────────────────────")
     print(results_df.head(10).to_string(index=False))
     return results_df
+
+
+
+# ── step 2 — error analysis ───────────────────────────────────────────────────
+
+def _get_regime_predictions(trainer, regime_sets, scaler_y, test_df, sequence_length):
+    """
+    Helper — returns { label: (dates, y_true, y_pred) } all in original space.
+    """
+    results = {}
+    for label, (X_scaled, y_scaled) in regime_sets.items():
+        y_pred = scaler_y.inverse_transform(
+            trainer.predict(X_scaled).reshape(-1, 1)
+        ).flatten()
+        y_true = scaler_y.inverse_transform(y_scaled.reshape(-1, 1)).flatten()
+        sub = test_df[test_df["regime"] == label]
+        dates = sub.index[sequence_length:]
+        n = min(len(dates), len(y_true))
+        results[label] = (dates[:n], y_true[:n], y_pred[:n])
+    return results
+
+
+def plot_residuals_over_time(trainer, regime_sets, scaler_y, test_df, sequence_length, title=""):
+    """
+    Step 2.1 — One panel per regime showing true |return| (grey) and
+    absolute error filled in regime colour. Errors that spike with the
+    grey line = mean-reversion bias.
+    """
+    colors = {label: c for label, (_, _, c) in TEST_REGIMES.items()}
+    regime_preds = _get_regime_predictions(trainer, regime_sets, scaler_y, test_df, sequence_length)
+
+    fig, axes = plt.subplots(len(regime_preds), 1, figsize=(14, 4 * len(regime_preds)))
+    if len(regime_preds) == 1:
+        axes = [axes]
+    suptitle = "Step 2.1 — Residuals Over Time"
+    if title:
+        suptitle += f"  [{title}]"
+    fig.suptitle(suptitle, fontsize=13, fontweight="bold")
+
+    for ax, (label, (dates, y_true, y_pred)) in zip(axes, regime_preds.items()):
+        color = colors.get(label, "steelblue")
+        errors = np.abs(y_true - y_pred)
+        ax.plot(dates, y_true, linewidth=0.7, color="lightgrey", label="true |return|")
+        ax.fill_between(dates, errors, alpha=0.6, color=color, label="|error|")
+        ax.set_title(
+            f"{label}  —  mean |error|={errors.mean():.5f}   max |error|={errors.max():.5f}",
+            fontsize=10, fontweight="bold",
+        )
+        ax.set_ylabel("|return|  /  |error|")
+        ax.legend(fontsize=8)
+
+    fig.tight_layout()
+    plt.show()
+
+
+def plot_error_vs_magnitude(trainer, regime_sets, scaler_y, test_df, sequence_length, title=""):
+    """
+    Step 2.2 — Left: scatter true vs |error| coloured by regime + overall
+    linear fit. Right: signed error histograms per regime overlaid.
+    Positive slope + histograms shifted left = mean-reversion bias.
+    """
+    colors = {label: c for label, (_, _, c) in TEST_REGIMES.items()}
+    regime_preds = _get_regime_predictions(trainer, regime_sets, scaler_y, test_df, sequence_length)
+
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+    suptitle = "Step 2.2 — Error vs Magnitude"
+    if title:
+        suptitle += f"  [{title}]"
+    fig.suptitle(suptitle, fontsize=13, fontweight="bold")
+
+    all_true, all_abs_err = [], []
+
+    for label, (dates, y_true, y_pred) in regime_preds.items():
+        color = colors.get(label, "steelblue")
+        abs_error = np.abs(y_true - y_pred)
+        signed_error = y_pred - y_true
+        all_true.append(y_true)
+        all_abs_err.append(abs_error)
+
+        axes[0].scatter(y_true, abs_error, s=10, alpha=0.5, color=color,
+                        edgecolors="none", label=label)
+        axes[1].hist(signed_error, bins=40, alpha=0.5, color=color, density=True,
+                     label=f"{label}  (mean={signed_error.mean():.5f})")
+
+    all_true_arr = np.concatenate(all_true)
+    all_abs_err_arr = np.concatenate(all_abs_err)
+    coeffs = np.polyfit(all_true_arr, all_abs_err_arr, 1)
+    x_line = np.linspace(all_true_arr.min(), all_true_arr.max(), 200)
+    axes[0].plot(x_line, np.polyval(coeffs, x_line), color="blue", linewidth=1.5,
+                 linestyle="--", label=f"linear fit  (slope={coeffs[0]:.2f})")
+    axes[0].set_xlabel("true |return|")
+    axes[0].set_ylabel("|error|")
+    axes[0].set_title("Absolute error vs true magnitude", fontsize=10)
+    axes[0].legend(fontsize=8)
+
+    axes[1].axvline(0, color="black", linewidth=1, linestyle="--")
+    axes[1].set_xlabel("signed error  (predicted − true)")
+    axes[1].set_ylabel("density")
+    axes[1].set_title("Signed error distribution per regime", fontsize=10)
+    axes[1].legend(fontsize=8)
+
+    fig.tight_layout()
+    plt.show()
+
+
+def plot_worst_predictions(trainer, regime_sets, scaler_y, scaler_X, test_df, sequence_length, top_pct=0.05):
+    """
+    Step 2.3 — For each regime, finds the top_pct worst predictions and
+    plots the input look-back window that preceded each failure.
+    Date shown in each subplot title.
+    """
+    colors = {label: c for label, (_, _, c) in TEST_REGIMES.items()}
+    regime_preds = _get_regime_predictions(trainer, regime_sets, scaler_y, test_df, sequence_length)
+
+    for label, (X_scaled, _) in regime_sets.items():
+        dates, y_true, y_pred = regime_preds[label]
+        abs_error = np.abs(y_true - y_pred)
+        threshold = np.quantile(abs_error, 1 - top_pct)
+        worst_idx = np.where(abs_error >= threshold)[0]
+
+        n_features = X_scaled.shape[2]
+        seq_len = X_scaled.shape[1]
+        X_inv = scaler_X.inverse_transform(
+            X_scaled.reshape(-1, n_features)
+        ).reshape(-1, seq_len, n_features)
+
+        color = colors.get(label, "steelblue")
+        n_worst = len(worst_idx)
+        ncols = min(5, n_worst)
+        nrows = int(np.ceil(n_worst / ncols))
+        fig, axes = plt.subplots(nrows, ncols, figsize=(3 * ncols, 2.5 * nrows), squeeze=False)
+        fig.suptitle(
+            f"Step 2.3 — Worst {top_pct:.0%} predictions  |  regime: {label}  "
+            f"({n_worst} samples,  error ≥ {threshold:.5f})",
+            fontsize=11, fontweight="bold",
+        )
+
+        for plot_i, idx in enumerate(worst_idx):
+            ax = axes[plot_i // ncols][plot_i % ncols]
+            seq = X_inv[idx, :, 0]
+            ax.plot(range(seq_len), seq, linewidth=1.0, color=color)
+            ax.axhline(y_true[idx], color="blue", linewidth=0.8, linestyle="--",
+                       label=f"true={y_true[idx]:.4f}")
+            ax.axhline(y_pred[idx], color="purple", linewidth=0.8, linestyle="-",
+                       label=f"pred={y_pred[idx]:.4f}")
+            date_str = str(dates[idx])[:10] if idx < len(dates) else ""
+            ax.set_title(f"{date_str}\nerr={abs_error[idx]:.4f}", fontsize=7)
+            ax.set_xticks([0, seq_len - 1])
+            ax.set_xticklabels(["lag N", "lag 1"], fontsize=6)
+            ax.tick_params(labelsize=6)
+            if plot_i == 0:
+                ax.legend(fontsize=6)
+
+        for plot_i in range(n_worst, nrows * ncols):
+            axes[plot_i // ncols][plot_i % ncols].axis("off")
+
+        fig.tight_layout()
+        plt.show()
+
+
+
+
+# ── step 3 — vanishing gradient diagnosis ─────────────────────────────────────
+
+def plot_gradient_norms(model, X: np.ndarray, title: str = "") -> None:
+    """
+    Step 3.1 — Gradient norm per time step (BPTT).
+
+    Runs a forward pass, then back-propagates from the output and records
+    ||d(loss)/d(h_t)|| for each step t = 0 … T.
+
+    If norms collapse to near zero after ~10 steps the model has no usable
+    memory beyond that point — extending SEQUENCE_LENGTH further is pointless.
+    """
+    import torch
+    model.eval()
+
+    batch_size = min(64, X.shape[0])
+    X_t = torch.tensor(X[:batch_size], dtype=torch.float32)
+
+    rnn_out, _ = model.rnn(X_t)          # (batch, seq_len, hidden)
+    rnn_out.retain_grad()                 # keep grad on non-leaf tensor
+
+    x = rnn_out[:, -1, :]
+    for layer in model.head:
+        x = layer(x)
+    y_hat = x
+    y_hat.sum().backward()
+
+    # rnn_out.grad : (batch, seq_len, hidden)
+    grad_norms = rnn_out.grad.norm(dim=-1).mean(dim=0).detach().cpu().numpy()  # (seq_len,)
+
+    seq_len = len(grad_norms)
+    # x-axis: step T (most recent) on left → step 0 (oldest) on right
+    steps_back = np.arange(seq_len)    # 0 = most recent … seq_len-1 = oldest
+
+    fig, ax = plt.subplots(figsize=(12, 4))
+    suptitle = "Step 3.1 — Gradient Norm per Time Step (BPTT)"
+    if title:
+        suptitle += f"  [{title}]"
+    fig.suptitle(suptitle, fontsize=13, fontweight="bold")
+
+    ax.plot(steps_back, grad_norms[::-1], color="steelblue", linewidth=2, marker="o", markersize=3)
+    ax.set_xlabel("steps back from prediction  (0 = most recent input,  T-1 = oldest)")
+    ax.set_ylabel("||d loss / d h_t||")
+    ax.set_title(
+        "Gradient vanishes → curve collapses toward 0 after a few steps\n"
+        "Flat curve → gradient flows uniformly (good memory)",
+        fontsize=9,
+    )
+
+    # annotate half-life: first step where norm < 50% of the max
+    max_norm = grad_norms.max()
+    if max_norm > 0:
+        half_idx = np.argmax(grad_norms[::-1] < 0.5 * max_norm)
+        if half_idx > 0:
+            ax.axvline(half_idx, color="crimson", linestyle="--", linewidth=1,
+                       label=f"50%-decay at step {half_idx}")
+            ax.legend(fontsize=9)
+
+    fig.tight_layout()
+    plt.show()
+
+
+def plot_effective_memory(model, X: np.ndarray, title: str = "") -> None:
+    """
+    Step 3.2 — Effective memory length via h_T / x_t correlation.
+
+    For each lag t (0 = oldest … T = most recent), computes the mean
+    absolute Pearson correlation between the final hidden state h_T and
+    the input x_t across all samples.
+
+    High correlation at lag 1 and near-zero at lag 20 = model only
+    remembers the last few steps regardless of sequence length.
+    """
+    import torch
+    model.eval()
+
+    n = min(256, X.shape[0])
+    X_t = torch.tensor(X[:n], dtype=torch.float32)
+
+    with torch.no_grad():
+        _, h_T = model.rnn(X_t)              # (num_layers, batch, hidden)
+        h_T = h_T[-1].cpu().numpy()          # last layer: (batch, hidden)
+
+    X_np = X[:n]                             # (batch, seq_len, features)
+    seq_len = X_np.shape[1]
+
+    # Precompute centred / normalised h_T
+    h_c = h_T - h_T.mean(axis=0)            # (batch, hidden)
+    h_std = h_T.std(axis=0) + 1e-8          # (hidden,)
+
+    corr_per_lag = []
+    for t in range(seq_len):
+        x_t = X_np[:, t, :]                  # (batch, features)
+        x_c = x_t - x_t.mean(axis=0)
+        x_std = x_t.std(axis=0) + 1e-8
+
+        cov = (h_c.T @ x_c) / n             # (hidden, features)
+        corr_mat = cov / (h_std[:, None] * x_std[None, :])
+        corr_per_lag.append(np.abs(corr_mat).mean())
+
+    # x-axis: lag 1 on the left (most recent), lag N on the right
+    lags = np.arange(1, seq_len + 1)
+    corr_arr = np.array(corr_per_lag)[::-1]   # flip: index 0 → lag 1
+
+    fig, ax = plt.subplots(figsize=(12, 4))
+    suptitle = "Step 3.2 — Effective Memory Length  (h_T vs x_t correlation)"
+    if title:
+        suptitle += f"  [{title}]"
+    fig.suptitle(suptitle, fontsize=13, fontweight="bold")
+
+    ax.bar(lags, corr_arr, color="darkorange", alpha=0.8, edgecolor="none")
+    ax.set_xlabel("lag  (1 = yesterday,  N = N days ago)")
+    ax.set_ylabel("mean |Pearson r|  (h_T vs x_t)")
+    ax.set_title(
+        "High bar at lag 1 + rapid decay → model only uses recent inputs\n"
+        "Slow decay → hidden state genuinely accumulates older context",
+        fontsize=9,
+    )
+
+    fig.tight_layout()
+    plt.show()
+
+
+def plot_whh_spectrum(model, title: str = "") -> None:
+    """
+    Step 3.3 — W_hh singular value spectrum.
+
+    The spectral radius (largest singular value σ₁) determines the
+    long-run fate of gradients flowing through W_hh^T:
+      σ₁ < 1 → gradients shrink (vanishing)   — typical for vanilla RNN
+      σ₁ > 1 → gradients grow  (exploding)    — training instability
+      σ₁ ≈ 1 → gradients are preserved         — "edge of chaos", rare without LSTM
+
+    The histogram shows whether W_hh is uniformly near zero (dead memory),
+    spread around 0 (healthy), or has heavy tails (risk of instability).
+    """
+    W_hh = model.rnn.weight_hh_l0.detach().cpu().numpy()   # (hidden, hidden)
+    sv = np.linalg.svd(W_hh, compute_uv=False)              # sorted descending
+    spectral_radius = sv[0]
+
+    fig, axes = plt.subplots(1, 2, figsize=(14, 4))
+    suptitle = "Step 3.3 — W_hh Singular Value Spectrum"
+    if title:
+        suptitle += f"  [{title}]"
+    fig.suptitle(suptitle, fontsize=13, fontweight="bold")
+
+    # left — ranked singular values
+    axes[0].plot(sv, "o-", color="steelblue", markersize=4, linewidth=1.2)
+    axes[0].axhline(1.0, color="crimson", linestyle="--", linewidth=1.2, label="σ = 1  (boundary)")
+    axes[0].set_xlabel("rank")
+    axes[0].set_ylabel("singular value")
+    axes[0].set_title(
+        f"Ranked singular values\nspectral radius = {spectral_radius:.3f}  "
+        f"({'vanishing' if spectral_radius < 1 else 'exploding'})",
+        fontsize=10,
+    )
+    axes[0].legend(fontsize=9)
+
+    # right — distribution
+    axes[1].hist(sv, bins=30, color="steelblue", alpha=0.8, edgecolor="none")
+    axes[1].axvline(1.0, color="crimson", linestyle="--", linewidth=1.2, label="σ = 1")
+    axes[1].set_xlabel("singular value")
+    axes[1].set_ylabel("count")
+    axes[1].set_title("Distribution of singular values", fontsize=10)
+    axes[1].legend(fontsize=9)
+
+    fig.tight_layout()
+    plt.show()
+
+
+def plot_gradient_norms_by_regime(model, regime_sets: dict, title: str = "") -> None:
+    """
+    Step 3.1 (regime) — Gradient norm per time step, one panel per regime.
+
+    Same computation as plot_gradient_norms but run separately on each
+    held-out regime set so that calm / clustering / spikes can be compared.
+    regime_sets : dict { label: (X, y) } as returned by prepare_datasets.
+    """
+    import torch
+    model.eval()
+
+    n_regimes = len(regime_sets)
+    fig, axes = plt.subplots(1, n_regimes, figsize=(6 * n_regimes, 4), sharey=True)
+    if n_regimes == 1:
+        axes = [axes]
+
+    suptitle = "Step 3.1 — Gradient Norm per Time Step by Regime (BPTT)"
+    if title:
+        suptitle += f"  [{title}]"
+    fig.suptitle(suptitle, fontsize=13, fontweight="bold")
+
+    for ax, (label, (X, _)) in zip(axes, regime_sets.items()):
+        model.zero_grad()
+        batch_size = min(64, X.shape[0])
+        X_t = torch.tensor(X[:batch_size], dtype=torch.float32)
+
+        rnn_out, _ = model.rnn(X_t)
+        rnn_out.retain_grad()
+
+        x = rnn_out[:, -1, :]
+        for layer in model.head:
+            x = layer(x)
+        x.sum().backward()
+
+        grad_norms = rnn_out.grad.norm(dim=-1).mean(dim=0).detach().cpu().numpy()
+        seq_len = len(grad_norms)
+        steps_back = np.arange(seq_len)
+
+        ax.plot(steps_back, grad_norms[::-1], color="steelblue", linewidth=2, marker="o", markersize=3)
+        ax.set_xlabel("steps back from prediction")
+        ax.set_title(label, fontsize=11)
+
+        max_norm = grad_norms.max()
+        if max_norm > 0:
+            half_idx = np.argmax(grad_norms[::-1] < 0.5 * max_norm)
+            if half_idx > 0:
+                ax.axvline(half_idx, color="crimson", linestyle="--", linewidth=1,
+                           label=f"50%-decay at step {half_idx}")
+                ax.legend(fontsize=8)
+
+    axes[0].set_ylabel("||d loss / d h_t||")
+    fig.tight_layout()
+    plt.show()
+
+
+def plot_effective_memory_by_regime(model, regime_sets: dict, title: str = "") -> None:
+    """
+    Step 3.2 (regime) — Effective memory length, one panel per regime.
+
+    Same computation as plot_effective_memory but run separately on each
+    held-out regime set so that calm / clustering / spikes can be compared.
+    regime_sets : dict { label: (X, y) } as returned by prepare_datasets.
+    """
+    import torch
+    model.eval()
+
+    n_regimes = len(regime_sets)
+    fig, axes = plt.subplots(1, n_regimes, figsize=(6 * n_regimes, 4), sharey=True)
+    if n_regimes == 1:
+        axes = [axes]
+
+    suptitle = "Step 3.2 — Effective Memory Length by Regime  (h_T vs x_t correlation)"
+    if title:
+        suptitle += f"  [{title}]"
+    fig.suptitle(suptitle, fontsize=13, fontweight="bold")
+
+    for ax, (label, (X, _)) in zip(axes, regime_sets.items()):
+        n = min(256, X.shape[0])
+        X_t = torch.tensor(X[:n], dtype=torch.float32)
+
+        with torch.no_grad():
+            _, h_T = model.rnn(X_t)
+            h_T = h_T[-1].cpu().numpy()
+
+        X_np = X[:n]
+        seq_len = X_np.shape[1]
+
+        h_c = h_T - h_T.mean(axis=0)
+        h_std = h_T.std(axis=0) + 1e-8
+
+        corr_per_lag = []
+        for t in range(seq_len):
+            x_t = X_np[:, t, :]
+            x_c = x_t - x_t.mean(axis=0)
+            x_std = x_t.std(axis=0) + 1e-8
+            cov = (h_c.T @ x_c) / n
+            corr_mat = cov / (h_std[:, None] * x_std[None, :])
+            corr_per_lag.append(np.abs(corr_mat).mean())
+
+        lags = np.arange(1, seq_len + 1)
+        corr_arr = np.array(corr_per_lag)[::-1]
+
+        ax.bar(lags, corr_arr, color="darkorange", alpha=0.8, edgecolor="none")
+        ax.set_xlabel("lag  (1 = yesterday,  N = N days ago)")
+        ax.set_title(label, fontsize=11)
+
+    axes[0].set_ylabel("mean |Pearson r|  (h_T vs x_t)")
+    fig.tight_layout()
+    plt.show()

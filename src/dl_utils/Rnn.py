@@ -103,7 +103,88 @@ class RNN(nn.Module):
             last = layer(last)
 
         return last
-    
+
+
+class RNNMeanPool(nn.Module):
+    """
+    RNN that feeds the temporal mean of all hidden states to the head,
+    instead of only h_T.
+
+    The vanilla RNN fails because the output Jacobian collapses at step 1:
+    h_T is linearly dominated by the most recent input, so the head never
+    learns to extract older information even though h_T nonlinearly encodes it.
+    Mean-pooling across all T hidden states gives the head a direct, equal-weight
+    view of every time step — bypassing the Jacobian collapse entirely.
+    """
+    def __init__(
+        self,
+        input_size:   int,
+        hidden_size:  int,
+        num_layers:   int = 1,
+        nonlinearity: RNNNonlinearity = 'tanh',
+        rnn_dropout:  float = 0.0,
+        head: Optional[List[Dense]] = None,
+    ) -> None:
+        super().__init__()
+        self.rnn = nn.RNN(
+            input_size=input_size,
+            hidden_size=hidden_size,
+            num_layers=num_layers,
+            nonlinearity=nonlinearity,
+            batch_first=True,
+            dropout=rnn_dropout if num_layers > 1 else 0.0,
+        )
+        self.head = nn.ModuleList(head) if head is not None else nn.ModuleList([])
+
+    def forward(self, x: torch.Tensor, h0=None) -> torch.Tensor:
+        out, _ = self.rnn(x, h0)      # (batch, seq_len, hidden)
+        pooled = out.mean(dim=1)       # (batch, hidden) — equal weight to all steps
+        for layer in self.head:
+            pooled = layer(pooled)
+        return pooled
+
+
+class LSTM(nn.Module):
+    """
+    LSTM wrapper that mirrors the RNN class interface.
+
+    The key difference from vanilla RNN: the cell state c_t acts as a
+    gradient highway during BPTT. Forget/input/output gates control what
+    information is written, retained, and exposed at each step, allowing
+    gradients to flow back 50-100+ steps without exponential decay.
+
+    The output gate specifically controls what the head reads from the cell
+    state — this lets the model learn to expose older context to the
+    prediction layer, which vanilla RNN cannot do (its Jacobian collapses
+    at step 1).
+    """
+    def __init__(
+        self,
+        input_size:   int,
+        hidden_size:  int,
+        num_layers:   int = 1,
+        lstm_dropout: float = 0.0,
+        bidirectional: bool = False,
+        head: Optional[List[Dense]] = None,
+    ) -> None:
+        super().__init__()
+
+        self.lstm = nn.LSTM(
+            input_size=input_size,
+            hidden_size=hidden_size,
+            num_layers=num_layers,
+            batch_first=True,
+            dropout=lstm_dropout if num_layers > 1 else 0.0,
+            bidirectional=bidirectional,
+        )
+        self.head = nn.ModuleList(head) if head is not None else nn.ModuleList([])
+
+    def forward(self, x: torch.Tensor, h0=None) -> torch.Tensor:
+        out, _ = self.lstm(x, h0)
+        last = out[:, -1, :]          # (batch, hidden_size)
+        for layer in self.head:
+            last = layer(last)
+        return last
 
 
 LossFunction = Literal['mse', 'mae', 'huber']
