@@ -7,7 +7,13 @@ A ground-up implementation of deep learning in pure NumPy, applied to financial 
 ## Project Structure
 
 ```
-dl_from_scratch/
+deep_learning_implementation/
+├── notebooks/
+│   ├── 1_financial_data_and_baselines.ipynb
+│   ├── 2_activation_functions.ipynb
+│   ├── 3_weight_initialization.ipynb
+│   ├── 4_fnn_volatility_forecasting.ipynb
+│   └── 5_rnn_volatility_forecasting.ipynb
 ├── src/
 │   ├── dl_utils/          # Core deep learning library (layers, loss, optimizer, trainer)
 │   ├── data_utils/        # Financial data download and dataset construction
@@ -15,45 +21,38 @@ dl_from_scratch/
 │   ├── maths_utils.py     # Low-level math: chain rule, manual gradient, simple linear model
 │   └── neural_network_utils.py  # Early-stage neural network (pre dl_utils)
 ├── data/                  # Cached SP500 log return series (CSV)
-├── 1_test.ipynb
-├── 2_fnn.ipynb
-├── 3_dl.ipynb
-├── 4_activations.ipynb
-└── 5_weight_init.ipynb
+└── report/                # LaTeX report with figures
 ```
 
 ---
 
 ## Notebooks
 
-### `1_test.ipynb` — Math Foundations
-Covers the mathematical building blocks of neural networks:
-- Function composition and the chain rule visualized
-- Manual gradient computation through composed functions (sigmoid, square)
-- A first from-scratch linear model trained with gradient descent on California Housing data
+### `notebooks/1_financial_data_and_baselines.ipynb` — Financial Data & Baselines
+SP500 log return data loading and exploration, followed by baseline models (linear regression) that establish the performance floor for subsequent deep learning experiments.
 
-### `2_fnn.ipynb` — Feedforward Neural Network (Early Implementation)
-A simple feedforward neural network built directly in `neural_network_utils.py`, without the modular `dl_utils` framework. Trained on California Housing regression. Serves as a stepping stone before the full object-oriented implementation.
-
-### `3_dl.ipynb` — Deep Learning on Financial Data
-The main experiment notebook. Uses the full `dl_utils` framework to train neural networks on SP500 daily log return data.
-- **Task 1**: predict next-day return (log returns) — shows that neither linear regression nor neural networks can beat a near-random baseline due to the efficient market hypothesis
-- **Task 2**: predict next-day absolute return (volatility) — exploits the ARCH effect (autocorrelated volatility) where neural networks outperform linear regression
-- Benchmarks: linear regression vs sigmoid network vs ReLU network vs PyTorch equivalent
-- Demonstrates the effect of normalization, learning rate, early stopping, and momentum
-
-### `4_activations.ipynb` — Activation Functions
+### `notebooks/2_activation_functions.ipynb` — Activation Functions
 Visual reference for all implemented activation functions.
 - Each function plotted alongside its derivative (computed via the Operation's own `backward()`)
 - Markdown pros/cons for each: Sigmoid, Tanh, ReLU, Leaky ReLU, ELU, Swish
 - Side-by-side overview grid of all six
 
-### `5_weight_init.ipynb` — Weight Initialization
+### `notebooks/3_weight_initialization.ipynb` — Weight Initialization
 Experiments on how weight initialization affects training dynamics.
-- For each initialization strategy: plots weight distributions, pre-activation signals, and post-activation signals before and after training
+- For each strategy: plots weight distributions, pre-activation signals, and post-activation signals before and after training
 - Shows concretely how bad initialization (standard normal + Sigmoid) causes saturation while Glorot keeps signals stable
-- Final MAE comparison table across all init strategies
-- Strategies covered: Standard, Glorot Normal, Glorot Uniform, He Normal, He Uniform, LeCun Normal
+- Final MAE comparison table across all strategies: Standard, Glorot Normal, Glorot Uniform, He Normal, He Uniform, LeCun Normal
+
+### `notebooks/4_fnn_volatility_forecasting.ipynb` — FNN Volatility Forecasting
+Full feedforward network pipeline using the `dl_utils` framework applied to SP500 volatility (absolute return) forecasting.
+- Benchmarks FNN vs linear regression; exploits the ARCH effect (autocorrelated volatility)
+- Explores depth, activation functions, dropout regularization, learning rate decay, and momentum
+- PyTorch equivalent included for reference validation
+
+### `notebooks/5_rnn_volatility_forecasting.ipynb` — RNN Volatility Forecasting
+RNN and LSTM experiments on SP500 volatility forecasting using the PyTorch wrappers (`Rnn.py`, `Lstm.py`).
+- Sequential dataset construction with sliding window for recurrent models
+- Comparison of RNN, GRU, and LSTM architectures against FNN baseline
 
 ---
 
@@ -61,8 +60,8 @@ Experiments on how weight initialization affects training dynamics.
 
 | Module | Description |
 |--------|-------------|
-| `dl_utils` | Core framework: operations, layers, loss functions, optimizers, trainer |
-| `data_utils` | SP500 data download via yfinance, lag-feature dataset construction |
+| `dl_utils` | Core framework: operations, layers, loss functions, optimizers, trainer; also includes PyTorch-based RNN/LSTM wrappers (`Rnn.py`, `Lstm.py`) for reference validation |
+| `data_utils` | SP500 data download via yfinance, lag-feature dataset construction (2D and sequential 3D) |
 | `model_analysis` | Weight/activation distribution plotting utilities used in notebooks |
 | `maths_utils` | Chain rule, manual gradients, simple linear regression from scratch |
 | `neural_network_utils` | Pre-framework neural network, kept as a reference implementation |
