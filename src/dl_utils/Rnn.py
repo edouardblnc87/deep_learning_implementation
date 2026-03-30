@@ -5,6 +5,7 @@ from typing import Optional, List, Literal
 from typing import get_args, Literal
 from torch.utils.data import DataLoader, TensorDataset
 import numpy as np
+import matplotlib.pyplot as plt
 Activation = Literal['relu', 'tanh', 'sigmoid', 'leaky_relu', 'elu', 'none']
 Initializer = Literal['xavier_uniform', 'xavier_normal', 'kaiming_uniform', 'kaiming_normal', 'normal', 'uniform', 'zeros']
 RNNNonlinearity = Literal['tanh', 'relu']
@@ -238,6 +239,7 @@ class Trainer:
         self.train_losses: List[float] = []
         self.test_losses:  List[float] = []
         self._best_weights = None
+        self.best_epoch: int = 0
 
 
     def _to_tensor(self, x) -> torch.Tensor:
@@ -306,6 +308,7 @@ class Trainer:
                 if test_loss < best_test_loss:
                     best_test_loss = test_loss
                     best_epoch = epoch
+                    self.best_epoch = best_epoch
                     epochs_no_improve = 0
                     self._best_weights = {k: v.clone() for k, v in self.model.state_dict().items()}
                 else:
@@ -353,6 +356,27 @@ class Trainer:
 
         return pred
 
+
+    def plot_training_curve(self, title: str = "") -> None:
+        if not self.train_losses:
+            print("No training history — call fit() first.")
+            return
+
+        fig, ax = plt.subplots(figsize=(9, 4))
+        epochs = range(len(self.train_losses))
+
+        ax.plot(epochs, self.train_losses, label="train loss", linewidth=1.5)
+        if self.test_losses:
+            ax.plot(epochs, self.test_losses, label="val loss", linewidth=1.5)
+            ax.axvline(self.best_epoch, color="gray", linestyle="--", linewidth=1,
+                       label=f"best epoch ({self.best_epoch})")
+
+        ax.set_xlabel("epoch")
+        ax.set_ylabel("loss")
+        ax.set_title(title if title else "Training curve")
+        ax.legend()
+        fig.tight_layout()
+        plt.show()
 
     def summary(self) -> None:
         total = sum(p.numel() for p in self.model.parameters())
