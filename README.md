@@ -2,6 +2,9 @@
 
 A ground-up implementation of deep learning in pure NumPy, applied to financial time series forecasting on SP500 data. The goal is to understand every component of a neural network — forward pass, backpropagation, optimizers, regularization — by building it without relying on any deep learning framework.
 
+
+**The results of all studies conducted in the notebooks are analyzed and discussed in the report [`report/main.pdf`](report/main.pdf).**
+
 ---
 
 ## Project Structure
@@ -50,9 +53,9 @@ Full feedforward network pipeline using the `dl_utils` framework applied to SP50
 - PyTorch equivalent included for reference validation
 
 ### `notebooks/5_rnn_volatility_forecasting.ipynb` — RNN Volatility Forecasting
-RNN and LSTM experiments on SP500 volatility forecasting using the PyTorch wrappers (`Rnn.py`, `Lstm.py`).
+RNN experiments on SP500 volatility forecasting using the PyTorch wrappers (`Rnn.py`).
 - Sequential dataset construction with sliding window for recurrent models
-- Comparison of RNN, GRU, and LSTM architectures against FNN baseline
+- Comparison of RNN architectures against FNN baseline
 
 ---
 
@@ -60,7 +63,7 @@ RNN and LSTM experiments on SP500 volatility forecasting using the PyTorch wrapp
 
 | Module | Description |
 |--------|-------------|
-| `dl_utils` | Core framework: operations, layers, loss functions, optimizers, trainer; also includes PyTorch-based RNN/LSTM wrappers (`Rnn.py`, `Lstm.py`) for reference validation |
+| `dl_utils` | Core framework: operations, layers, loss functions, optimizers, trainer; also includes PyTorch-based RNN wrappers (`Rnn.py`) for reference validation |
 | `data_utils` | SP500 data download via yfinance, lag-feature dataset construction (2D and sequential 3D) |
 | `model_analysis` | Weight/activation distribution plotting utilities used in notebooks |
 | `maths_utils` | Chain rule, manual gradients, simple linear regression from scratch |
