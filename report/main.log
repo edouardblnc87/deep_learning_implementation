@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.3.9)  29 MAR 2026 22:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.3.9)  30 MAR 2026 11:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -496,191 +496,316 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
-[2] (sections/01_introduction.tex [3]) (sections/02_data.tex [4]
-<figures/figure_21.png, id=315, 1003.8303pt x 281.853pt>
+[2] (sections/01_introduction.tex [3]) [4] (sections/02_data.tex
+<figures/figure_21.png, id=367, 1003.8303pt x 281.853pt>
 File: figures/figure_21.png Graphic file (type png)
 <use figures/figure_21.png>
 Package pdftex.def Info: figures/figure_21.png  used on input line 55.
 (pdftex.def)             Requested size: 455.24411pt x 127.82184pt.
-<figures/figure_22.png, id=317, 1003.8303pt x 281.853pt>
+ [5
+
+]
+<figures/figure_22.png, id=376, 1003.8303pt x 281.853pt>
 File: figures/figure_22.png Graphic file (type png)
 <use figures/figure_22.png>
 Package pdftex.def Info: figures/figure_22.png  used on input line 70.
 (pdftex.def)             Requested size: 455.24411pt x 127.82184pt.
- [5 <./figures/figure_21.png>]
-<figures/figure_23.png, id=325, 1003.8303pt x 298.4751pt>
+<figures/figure_23.png, id=377, 1003.8303pt x 298.4751pt>
 File: figures/figure_23.png Graphic file (type png)
 <use figures/figure_23.png>
 Package pdftex.def Info: figures/figure_23.png  used on input line 100.
 (pdftex.def)             Requested size: 455.24411pt x 135.36005pt.
- [6 <./figures/figure_22.png> <./figures/figure_23.png>]
-<figures/figure_24.png, id=335, 569.4876pt x 425.6703pt>
+ [6 <./figures/figure_21.png> <./figures/figure_22.png>]
+<figures/figure_24.png, id=387, 569.4876pt x 425.6703pt>
 File: figures/figure_24.png Graphic file (type png)
 <use figures/figure_24.png>
 Package pdftex.def Info: figures/figure_24.png  used on input line 119.
 (pdftex.def)             Requested size: 455.24411pt x 340.28339pt.
-)
-(sections/03_linear_regression.tex [7 <./figures/figure_24.png>] [8]
-<figures/figure_31.png, id=352, 1003.8303pt x 281.853pt>
+ [7 <./figures/figure_23.png>])
+[8 <./figures/figure_24.png>] (sections/03_linear_regression.tex [9
+
+]
+<figures/figure_31.png, id=410, 1003.8303pt x 281.853pt>
 File: figures/figure_31.png Graphic file (type png)
 <use figures/figure_31.png>
 Package pdftex.def Info: figures/figure_31.png  used on input line 74.
 (pdftex.def)             Requested size: 455.24411pt x 127.82184pt.
- [9 <./figures/figure_31.png>] [10]) (sections/04_fnn.tex [11]
-<figures/figure_41.png, id=382, 714.7503pt x 354.123pt>
+ [10 <./figures/figure_31.png>] [11]) [12] (sections/04_fnn.tex
+<figures/figure_41.png, id=438, 714.7503pt x 354.123pt>
 File: figures/figure_41.png Graphic file (type png)
 <use figures/figure_41.png>
 Package pdftex.def Info: figures/figure_41.png  used on input line 65.
 (pdftex.def)             Requested size: 455.24411pt x 225.55724pt.
- [12]
-<figures/figure_42.png, id=390, 714.7503pt x 354.123pt>
+ [13
+
+]
+<figures/figure_42.png, id=448, 714.7503pt x 354.123pt>
 File: figures/figure_42.png Graphic file (type png)
 <use figures/figure_42.png>
 Package pdftex.def Info: figures/figure_42.png  used on input line 97.
 (pdftex.def)             Requested size: 455.24411pt x 225.55724pt.
- [13 <./figures/figure_41.png>]
-<figures/figure_43.png, id=399, 787.0203pt x 354.123pt>
+ [14 <./figures/figure_41.png>]
+<figures/figure_43.png, id=455, 787.0203pt x 354.123pt>
 File: figures/figure_43.png Graphic file (type png)
 <use figures/figure_43.png>
 Package pdftex.def Info: figures/figure_43.png  used on input line 140.
 (pdftex.def)             Requested size: 455.24411pt x 204.84032pt.
- [14 <./figures/figure_42.png>]
+ [15 <./figures/figure_42.png>]
 Overfull \hbox (3.64725pt too wide) in paragraph at lines 152--154
 []$\OML/cmm/m/it/12  \OT1/cmr/m/n/12 = 10[]$\T1/cmr/m/n/12 : early over-shoot 
 fol-lowed by con-ver-gence to a worse min-i-mum (MAE $\OT1/cmr/m/n/12 0\OML/cmm
 /m/it/12 :\OT1/cmr/m/n/12 618$\T1/cmr/m/n/12 ). 
  []
 
-<figures/figure_44.png, id=407, 570.933pt x 281.853pt>
+<figures/figure_44.png, id=463, 570.933pt x 281.853pt>
 File: figures/figure_44.png Graphic file (type png)
 <use figures/figure_44.png>
 Package pdftex.def Info: figures/figure_44.png  used on input line 166.
 (pdftex.def)             Requested size: 455.24411pt x 224.74728pt.
-[15 <./figures/figure_43.png>]
-<figures/figure_45.png, id=416, 1004.553pt x 724.8681pt>
+[16 <./figures/figure_43.png>]
+<figures/figure_45.png, id=471, 1004.553pt x 724.8681pt>
 File: figures/figure_45.png Graphic file (type png)
 <use figures/figure_45.png>
 Package pdftex.def Info: figures/figure_45.png  used on input line 201.
 (pdftex.def)             Requested size: 455.24411pt x 328.4993pt.
- [16 <./figures/figure_44.png>]
-<figures/figure_49.png, id=425, 642.4803pt x 281.853pt>
+ [17 <./figures/figure_44.png>]
+<figures/figure_49.png, id=480, 642.4803pt x 281.853pt>
 File: figures/figure_49.png Graphic file (type png)
 <use figures/figure_49.png>
 Package pdftex.def Info: figures/figure_49.png  used on input line 223.
 (pdftex.def)             Requested size: 455.24411pt x 199.71275pt.
- [17 <./figures/figure_45.png>]
-<figures/figure_46.png, id=434, 1079.7138pt x 879.5259pt>
+ [18 <./figures/figure_45.png>]
+<figures/figure_46.png, id=488, 1079.7138pt x 879.5259pt>
 File: figures/figure_46.png Graphic file (type png)
 <use figures/figure_46.png>
 Package pdftex.def Info: figures/figure_46.png  used on input line 271.
 (pdftex.def)             Requested size: 455.24411pt x 370.83435pt.
- [18 <./figures/figure_49.png>]
-<figures/figure_47.png, id=442, 1076.1003pt x 879.5259pt>
+ [19 <./figures/figure_49.png>]
+<figures/figure_47.png, id=497, 1076.1003pt x 879.5259pt>
 File: figures/figure_47.png Graphic file (type png)
 <use figures/figure_47.png>
 Package pdftex.def Info: figures/figure_47.png  used on input line 282.
 (pdftex.def)             Requested size: 455.24411pt x 372.08246pt.
- [19 <./figures/figure_46.png>]
-<figures/figure_48.png, id=450, 1004.553pt x 357.7365pt>
+ [20 <./figures/figure_46.png>]
+<figures/figure_48.png, id=504, 1004.553pt x 357.7365pt>
 File: figures/figure_48.png Graphic file (type png)
 <use figures/figure_48.png>
 Package pdftex.def Info: figures/figure_48.png  used on input line 302.
 (pdftex.def)             Requested size: 455.24411pt x 162.12077pt.
 
-[20 <./figures/figure_47.png>]
-<figures/figure_412.png, id=457, 1076.1003pt x 286.1892pt>
+[21 <./figures/figure_47.png>]
+<figures/figure_412.png, id=511, 1076.1003pt x 286.1892pt>
 File: figures/figure_412.png Graphic file (type png)
 <use figures/figure_412.png>
 Package pdftex.def Info: figures/figure_412.png  used on input line 322.
 (pdftex.def)             Requested size: 455.24411pt x 121.072pt.
- [21 <./figures/figure_48.png> <./figures/figure_412.png>]
-<figures/figure_410.png, id=466, 714.7503pt x 354.123pt>
+ [22 <./figures/figure_48.png> <./figures/figure_412.png>]
+<figures/figure_410.png, id=520, 714.7503pt x 354.123pt>
 File: figures/figure_410.png Graphic file (type png)
 <use figures/figure_410.png>
 Package pdftex.def Info: figures/figure_410.png  used on input line 351.
 (pdftex.def)             Requested size: 455.24411pt x 225.55724pt.
-<figures/figure_411.png, id=467, 1003.8303pt x 357.7365pt>
+<figures/figure_411.png, id=521, 1003.8303pt x 357.7365pt>
 File: figures/figure_411.png Graphic file (type png)
 <use figures/figure_411.png>
 Package pdftex.def Info: figures/figure_411.png  used on input line 388.
 (pdftex.def)             Requested size: 455.24411pt x 162.23541pt.
- [22 <./figures/figure_410.png>] [23 <./figures/figure_411.png>])
-(sections/05_rnn.tex) (sections/06_lstm.tex) [24] (main.aux)
+ [23 <./figures/figure_410.png>] [24 <./figures/figure_411.png>])
+[25] (sections/05_rnn.tex [26
+
+]
+<figures/figure_51.png, id=548, 1003.8303pt x 281.853pt>
+File: figures/figure_51.png Graphic file (type png)
+<use figures/figure_51.png>
+Package pdftex.def Info: figures/figure_51.png  used on input line 121.
+(pdftex.def)             Requested size: 455.24411pt x 127.82184pt.
+<figures/figure_52.png, id=549, 642.4803pt x 281.853pt>
+File: figures/figure_52.png Graphic file (type png)
+<use figures/figure_52.png>
+Package pdftex.def Info: figures/figure_52.png  used on input line 136.
+(pdftex.def)             Requested size: 455.24411pt x 199.71275pt.
+ [27 <./figures/figure_51.png>]
+<figures/figure_53.png, id=560, 714.7503pt x 281.853pt>
+File: figures/figure_53.png Graphic file (type png)
+<use figures/figure_53.png>
+Package pdftex.def Info: figures/figure_53.png  used on input line 152.
+(pdftex.def)             Requested size: 455.24411pt x 179.52515pt.
+<figures/figure_54.png, id=561, 1003.8303pt x 853.5087pt>
+File: figures/figure_54.png Graphic file (type png)
+<use figures/figure_54.png>
+Package pdftex.def Info: figures/figure_54.png  used on input line 169.
+(pdftex.def)             Requested size: 455.24411pt x 387.07077pt.
+ [28 <./figures/figure_52.png> <./figures/figure_53.png>] [29 <./figures/figure
+_54.png>]
+<figures/figure_55.png, id=579, 1003.1076pt x 286.1892pt>
+File: figures/figure_55.png Graphic file (type png)
+<use figures/figure_55.png>
+Package pdftex.def Info: figures/figure_55.png  used on input line 211.
+(pdftex.def)             Requested size: 455.24411pt x 129.88002pt.
+
+Underfull \hbox (badness 3199) in paragraph at lines 214--214
+[]\T1/cmr/m/n/12 Figure 22: |Weight dis-tri-bu-tions be-fore train-ing. $\OML/c
+mm/m/it/12 W[]$ \T1/cmr/m/n/12 (input$\OMS/cmsy/m/n/12 !$\T1/cmr/m/n/12 hidden)
+, $\OML/cmm/m/it/12 W[]$
+ []
+
+<figures/figure_56.png, id=580, 1003.8303pt x 286.1892pt>
+File: figures/figure_56.png Graphic file (type png)
+<use figures/figure_56.png>
+Package pdftex.def Info: figures/figure_56.png  used on input line 220.
+(pdftex.def)             Requested size: 455.24411pt x 129.78831pt.
+<figures/figure_57.png, id=581, 711.1368pt x 286.9119pt>
+File: figures/figure_57.png Graphic file (type png)
+<use figures/figure_57.png>
+Package pdftex.def Info: figures/figure_57.png  used on input line 238.
+(pdftex.def)             Requested size: 455.24411pt x 183.67113pt.
+[30 <./figures/figure_55.png> <./figures/figure_56.png>]
+<figures/figure_58.png, id=590, 711.1368pt x 286.9119pt>
+File: figures/figure_58.png Graphic file (type png)
+<use figures/figure_58.png>
+Package pdftex.def Info: figures/figure_58.png  used on input line 247.
+(pdftex.def)             Requested size: 455.24411pt x 183.67113pt.
+<figures/figure_59.png, id=591, 859.2903pt x 286.1892pt>
+File: figures/figure_59.png Graphic file (type png)
+<use figures/figure_59.png>
+Package pdftex.def Info: figures/figure_59.png  used on input line 268.
+(pdftex.def)             Requested size: 455.24411pt x 151.6184pt.
+ [31 <./figures/figure_57.png> <./figures/figure_58.png>]
+<figures/figure_510.png, id=601, 859.2903pt x 286.1892pt>
+File: figures/figure_510.png Graphic file (type png)
+<use figures/figure_510.png>
+Package pdftex.def Info: figures/figure_510.png  used on input line 278.
+(pdftex.def)             Requested size: 455.24411pt x 151.6184pt.
+<figures/figure_511.png, id=602, 1002.3849pt x 852.786pt>
+File: figures/figure_511.png Graphic file (type png)
+<use figures/figure_511.png>
+Package pdftex.def Info: figures/figure_511.png  used on input line 299.
+(pdftex.def)             Requested size: 455.24411pt x 387.30255pt.
+ [32 <./figures/figure_59.png> <./figures/figure_510.png>]
+<figures/figure_512.png, id=611, 1003.8303pt x 357.7365pt>
+File: figures/figure_512.png Graphic file (type png)
+<use figures/figure_512.png>
+Package pdftex.def Info: figures/figure_512.png  used on input line 319.
+(pdftex.def)             Requested size: 455.24411pt x 162.23541pt.
+ [33 <./figures/figure_511.png>]
+<figures/figure_513.png, id=618, 1075.3776pt x 534.798pt>
+File: figures/figure_513.png Graphic file (type png)
+<use figures/figure_513.png>
+Package pdftex.def Info: figures/figure_513.png  used on input line 344.
+(pdftex.def)             Requested size: 455.24411pt x 226.40074pt.
+ [34 <./figures/figure_512.png>]
+<figures/figure_514.png, id=625, 1075.3776pt x 534.798pt>
+File: figures/figure_514.png Graphic file (type png)
+<use figures/figure_514.png>
+Package pdftex.def Info: figures/figure_514.png  used on input line 354.
+(pdftex.def)             Requested size: 455.24411pt x 226.40074pt.
+<figures/figure_515.png, id=626, 517.4532pt x 180.675pt>
+File: figures/figure_515.png Graphic file (type png)
+<use figures/figure_515.png>
+Package pdftex.def Info: figures/figure_515.png  used on input line 363.
+(pdftex.def)             Requested size: 455.24411pt x 158.95587pt.
+
+[35 <./figures/figure_513.png> <./figures/figure_514.png>]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 386.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 386.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 386.
+
+<figures/figure_516.png, id=635, 1003.8303pt x 286.1892pt>
+File: figures/figure_516.png Graphic file (type png)
+<use figures/figure_516.png>
+Package pdftex.def Info: figures/figure_516.png  used on input line 395.
+(pdftex.def)             Requested size: 455.24411pt x 129.78831pt.
+[36 <./figures/figure_515.png> <./figures/figure_516.png>]
+<figures/figure_517.png, id=644, 859.2903pt x 286.1892pt>
+File: figures/figure_517.png Graphic file (type png)
+<use figures/figure_517.png>
+Package pdftex.def Info: figures/figure_517.png  used on input line 419.
+(pdftex.def)             Requested size: 455.24411pt x 151.6184pt.
+<figures/figure_518.png, id=645, 859.2903pt x 286.1892pt>
+File: figures/figure_518.png Graphic file (type png)
+<use figures/figure_518.png>
+Package pdftex.def Info: figures/figure_518.png  used on input line 441.
+(pdftex.def)             Requested size: 455.24411pt x 151.6184pt.
+ [37 <./figures/figure_517.png> <./figures/figure_518.png>]
+<figures/figure_519.png, id=655, 1293.633pt x 286.1892pt>
+File: figures/figure_519.png Graphic file (type png)
+<use figures/figure_519.png>
+Package pdftex.def Info: figures/figure_519.png  used on input line 478.
+(pdftex.def)             Requested size: 455.24411pt x 100.71356pt.
+ [38 <./figures/figure_519.png>]
+Overfull \hbox (15.13257pt too wide) in paragraph at lines 567--578
+ [][] 
+ []
+
+[39]
+Overfull \hbox (27.75117pt too wide) in paragraph at lines 599--605
+[]\T1/cmr/bx/n/12 Architecture, not hy-per-pa-ram-e-ters, is the bind-ing con-s
+traint. \T1/cmr/m/n/12 A 48-configuration
+ []
+
+) [40] (sections/06_lstm.tex
+Overfull \hbox (20.04657pt too wide) in paragraph at lines 16--30
+ [][] 
+ []
+
+[41
+
+]) [42] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: 5E239FF5429698A8A079F6C3455A7C31;7970
-(rerunfilecheck)             After:  C3BA32221FAE02FCA299DF91D6AAFBF2;7905.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 179DC414A98AFD6C5D4CE8373DF11246;10521.
  ) 
 Here is how much of TeX's memory you used:
- 13309 strings out of 467871
- 210186 string characters out of 5418377
- 636286 words of memory out of 5000000
- 41870 multiletter control sequences out of 15000+600000
- 647252 words of font info for 92 fonts, out of 8000000 for 9000
+ 13550 strings out of 467871
+ 215585 string characters out of 5418377
+ 640954 words of memory out of 5000000
+ 42038 multiletter control sequences out of 15000+600000
+ 649587 words of font info for 99 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,11n,79p,419b,522s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): name{subsubsection.4.7.2} has been referenced but does n
-ot exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsubsection.4.7.1} has been referenced but does n
-ot exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.4.7} has been referenced but does not ex
-ist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.4.6} has been referenced but does not ex
-ist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsubsection.4.4.3} has been referenced but does n
-ot exist, replaced by a fixed one
-
- <C:\Users\cleme\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm08
-00.pk> <C:\Users\cleme\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\
-tcrm1200.pk> <C:\Users\cleme\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/d
-pi600\ectt1200.pk> <C:\Users\cleme\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappe
-n/ec/dpi600\ecti1200.pk> <C:\Users\cleme\AppData\Local\MiKTeX\fonts/pk/ljfour/j
-knappen/ec/dpi600\ecbx1440.pk> <C:\Users\cleme\AppData\Local\MiKTeX\fonts/pk/lj
-four/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\cleme\AppData\Local\MiKTeX\fonts
-/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\cleme\AppData\Local\MiKTeX
-\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk> <C:\Users\cleme\AppData\Local\
-MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\Users\cleme\AppData\
-Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\cleme\Ap
-pData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.pk><C:/Users/cle
-me/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/
-Users/cleme/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10
-.pfb><C:/Users/cleme/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
-cm/cmmi12.pfb><C:/Users/cleme/AppData/Local/Programs/MiKTeX/fonts/type1/public/
-amsfonts/cm/cmmi6.pfb><C:/Users/cleme/AppData/Local/Programs/MiKTeX/fonts/type1
-/public/amsfonts/cm/cmmi8.pfb><C:/Users/cleme/AppData/Local/Programs/MiKTeX/fon
-ts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/cleme/AppData/Local/Programs/Mi
-KTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/cleme/AppData/Local/Pro
-grams/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/cleme/AppData/Lo
-cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/cleme/App
-Data/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/
-cleme/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C
+ 75i,11n,79p,537b,522s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\cleme\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm
+1000.pk> <C:\Users\cleme\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
+0\ecrm0800.pk> <C:\Users\cleme\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
+/dpi600\tcrm1200.pk> <C:\Users\cleme\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
+pen/ec/dpi600\ectt1200.pk> <C:\Users\cleme\AppData\Local\MiKTeX\fonts/pk/ljfour
+/jknappen/ec/dpi600\ecti1200.pk> <C:\Users\cleme\AppData\Local\MiKTeX\fonts/pk/
+ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\cleme\AppData\Local\MiKTeX\fon
+ts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\cleme\AppData\Local\MiKT
+eX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\cleme\AppData\Loca
+l\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk> <C:\Users\cleme\AppDat
+a\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\Users\cleme\
+AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\
+cleme\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.pk><C:/U
+sers/cleme/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.
+pfb><C:/Users/cleme/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
+m/cmex10.pfb><C:/Users/cleme/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
+msfonts/cm/cmmi12.pfb><C:/Users/cleme/AppData/Local/Programs/MiKTeX/fonts/type1
+/public/amsfonts/cm/cmmi6.pfb><C:/Users/cleme/AppData/Local/Programs/MiKTeX/fon
+ts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/cleme/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/cleme/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/cleme/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/cleme/Ap
+pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/c
+leme/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C
 :/Users/cleme/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy
-8.pfb><C:/Users/cleme/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
-/symbols/msbm10.pfb>
-Output written on main.pdf (24 pages, 1588342 bytes).
+6.pfb><C:/Users/cleme/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
+/cm/cmsy7.pfb><C:/Users/cleme/AppData/Local/Programs/MiKTeX/fonts/type1/public/
+amsfonts/cm/cmsy8.pfb><C:/Users/cleme/AppData/Local/Programs/MiKTeX/fonts/type1
+/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (42 pages, 2864857 bytes).
 PDF statistics:
- 982 PDF objects out of 1000 (max. 8388607)
- 132 named destinations out of 1000 (max. 500000)
- 510 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1242 PDF objects out of 1440 (max. 8388607)
+ 199 named destinations out of 1000 (max. 500000)
+ 693 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -27,8 +27,6 @@ applied to the same forecasting task:
         input as a flat, orderless feature vector.
   \item \textbf{Recurrent Neural Network (RNN)} --- a sequential model that can exploit
         the temporal ordering of lags.
-  \item \textbf{Long Short-Term Memory (LSTM)} --- a gated architecture designed to
-        capture long-range dependencies.
 \end{enumerate}
 
 Rather than searching for the best possible model, the goal is to \emph{understand the
@@ -69,11 +67,11 @@ two \textbf{market regimes} identified from the data:
         to the dot-com crash, the 2008 Global Financial Crisis, and the COVID shock.
 \end{itemize}
 
-The cross-model summary (Section~\ref{sec:lstm}) reports MAE only.
-
 \subsection{Paper Structure}
 
 Section~\ref{sec:data} describes the dataset and its key statistical properties.
 Section~\ref{sec:linreg} presents the linear regression and GARCH baselines.
-Sections~\ref{sec:fnn}--\ref{sec:lstm} progressively introduce the neural network
-architectures. A final comparison table closes the report.
+Sections~\ref{sec:fnn} and~\ref{sec:rnn} introduce the feedforward and recurrent
+neural network architectures respectively.
+Section~\ref{sec:conclusion} closes the report with a cross-model comparison and
+a discussion of limitations and future directions.

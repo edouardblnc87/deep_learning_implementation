@@ -58,7 +58,7 @@ with patience~$=10$ evaluated every 5~epochs.
 \subsubsection{Activation Function}
 
 Four activations are compared on the $32{\to}16{\to}1$ architecture with plain
-SGD ($\alpha=10^{-3}$).
+SGD ($\alpha=10^{-3}$, learning rate).
 
 \begin{figure}[H]
   \centering
@@ -125,8 +125,8 @@ accidentally perturbs the weights out of a shallow basin. On a harder
 problem or a deeper network this spike would cause permanent divergence.
 He normal reaches near-identical performance ($+0.003$) with \emph{monotone,
 predictable} convergence, and is theoretically motivated: for ReLU layers,
-$\operatorname{Var}(W) = 2/n_{\mathrm{in}}$ ensures that activation variance is
-preserved layer-to-layer, preventing both vanishing and exploding signals.
+$\operatorname{Var}(W) = 2/n_{\mathrm{in}}$ (where $n_{\mathrm{in}}$ is the number
+of inputs to the layer) ensures that activation variance is preserved layer-to-layer, preventing both vanishing and exploding signals.
 
 \noindent\textbf{Decision:} He normal for all subsequent experiments.
 
@@ -395,7 +395,8 @@ temporal ordering a structural rather than a learned property.
 
 \begin{table}[H]
   \centering
-  \caption{FNN MAE by volatility regime (75th-percentile threshold, $L=3$).}
+  \caption{FNN MAE by volatility regime (75th-percentile threshold, $L=3$;
+    note: the Data section uses a 90th-percentile definition).}
   \label{tab:fnn_regime}
   \begin{tabular}{lcc}
     \toprule
@@ -445,6 +446,6 @@ developed in the following sections:
         recurrent architecture is needed to make temporal ordering a structural
         property rather than an optimisation artefact.
   \item \textbf{Regime blindness}: without a persistent hidden state, the model
-        cannot exploit volatility clustering; an RNN or LSTM is needed to carry
+        cannot exploit volatility clustering; an RNN is needed to carry
         context across time steps.
 \end{itemize}
