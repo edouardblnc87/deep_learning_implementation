@@ -11,7 +11,8 @@ informative for motivating the neural network architectures that follow.
 
 An OLS model is trained on the 10 signed lag features with a standard train/test split.
 Features and target are scaled with a \texttt{StandardScaler} fitted on the training set
-only. The model takes the form
+only. The target $y_t = |r_t|$ is the realized absolute return, used throughout as a
+proxy for next-day volatility. The model takes the form
 \[
   \hat{y}_t = \beta_0 + \sum_{k=1}^{10} \beta_k \, r_{t-k}.
 \]
